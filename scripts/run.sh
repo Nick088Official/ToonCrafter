@@ -25,4 +25,5 @@ CUDA_VISIBLE_DEVICES=0 python3 scripts/evaluation/inference.py \
 --text_input \
 --video_length 16 \
 --frame_stride ${FS} \
---timestep_spacing 'uniform_trailing' --guidance_rescale 0.7 --perframe_ae --interp
+--timestep_spacing 'uniform_trailing' --guidance_rescale 0.7 --perframe_ae --interp \
+--model_precision fp16

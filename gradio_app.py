@@ -46,6 +46,8 @@ def dynamicrafter_demo(result_dir='./tmp/', res=512):
                         with gr.Row():
                             i2v_steps = gr.Slider(minimum=1, maximum=60, step=1, elem_id="i2v_steps", label="Sampling steps", value=50)
                             i2v_motion = gr.Slider(minimum=5, maximum=30, step=1, elem_id="i2v_motion", label="FPS", value=10)
+                        with gr.Row():
+                            model_precision = gr.Dropdown(["fp16", "fp32"], value="fp16", label="Model Precision Type", info="The precision type to load the model, like fp16 which is faster, or fp32 which is more precise but more resource consuming")
                         i2v_end_btn = gr.Button("Generate")
                     with gr.Column():
                         with gr.Row():

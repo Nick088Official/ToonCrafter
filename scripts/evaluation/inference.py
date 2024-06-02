@@ -330,6 +330,10 @@ def run_inference(args, gpu_num, gpu_no):
             else:
                 videos = videos.unsqueeze(0).to("cuda")
 
+            if model_precision == "fp16":
+                model = model.half()  # Convert model to half precision
+                videos = videos.half()  # Ensure inputs are also in half precision
+
             batch_samples = image_guided_synthesis(model, prompts, videos, noise_shape, args.n_samples, args.ddim_steps, args.ddim_eta, \
                                 args.unconditional_guidance_scale, args.cfg_img, args.frame_stride, args.text_input, args.multiple_cond_cfg, args.loop, args.interp, args.timestep_spacing, args.guidance_rescale)
 
@@ -367,6 +371,7 @@ def get_parser():
     parser.add_argument("--timestep_spacing", type=str, default="uniform", help="The way the timesteps should be scaled. Refer to Table 2 of the [Common Diffusion Noise Schedules and Sample Steps are Flawed](https://huggingface.co/papers/2305.08891) for more information.")
     parser.add_argument("--guidance_rescale", type=float, default=0.0, help="guidance rescale in [Common Diffusion Noise Schedules and Sample Steps are Flawed](https://huggingface.co/papers/2305.08891)")
     parser.add_argument("--perframe_ae", action='store_true', default=False, help="if we use per-frame AE decoding, set it to True to save GPU memory, especially for the model of 576x1024")
+    parser.add_argument("--model_precision", type=str, default="fp16", help="The precision to load the model", choices=["fp16", "fp32"])
 
     ## currently not support looping video and generative frame interpolation
     parser.add_argument("--loop", action='store_true', default=False, help="generate looping videos or not")
