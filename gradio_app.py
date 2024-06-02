@@ -6,9 +6,9 @@ sys.path.insert(1, os.path.join(sys.path[0], 'lvdm'))
 
 
 i2v_examples_interp_512 = [
-    ['prompts/512_interp/74906_1462_frame1.png', 'fp16', 'walking man', 50, 7.5, 1.0, 10, 123, 'prompts/512_interp/74906_1462_frame3.png'],
-    ['prompts/512_interp/Japan_v2_2_062266_s2_frame1.png', 'fp16', 'an anime scene', 50, 7.5, 1.0, 10, 789, 'prompts/512_interp/Japan_v2_2_062266_s2_frame3.png'],
-    ['prompts/512_interp/Japan_v2_3_119235_s2_frame1.png', 'fp16', 'an anime scene', 50, 7.5, 1.0, 10, 123, 'prompts/512_interp/Japan_v2_3_119235_s2_frame3.png'],
+    ['prompts/512_interp/74906_1462_frame1.png', 'walking man', 'fp16', 50, 7.5, 1.0, 10, 123, 'prompts/512_interp/74906_1462_frame3.png'],
+    ['prompts/512_interp/Japan_v2_2_062266_s2_frame1.png', 'an anime scene', 'fp16', 50, 7.5, 1.0, 10, 789, 'prompts/512_interp/Japan_v2_2_062266_s2_frame3.png'],
+    ['prompts/512_interp/Japan_v2_3_119235_s2_frame1.png', 'an anime scene', 'fp16', 50, 7.5, 1.0, 10, 123, 'prompts/512_interp/Japan_v2_3_119235_s2_frame3.png'],
 ]
 
 
