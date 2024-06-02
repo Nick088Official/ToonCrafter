@@ -34,7 +34,7 @@ class Image2Video():
         self.model_list = model_list
         self.save_fps = 8
 
-    def get_image(self, image, prompt, steps=50, cfg_scale=7.5, eta=1.0, fs=3, seed=123):
+    def get_image(self, image, prompt, model_precision, steps=50, cfg_scale=7.5, eta=1.0, fs=3, seed=123):
         seed_everything(seed)
         transform = transforms.Compose([
             transforms.Resize(min(self.resolution)),
@@ -47,7 +47,10 @@ class Image2Video():
         if steps > 60:
             steps = 60 
         model = self.model_list[gpu_id]
-        model = model.cuda()
+        if model_precision == "fp16":
+            model = model.cuda()
+        else:
+            model = model.cuda().half()
         batch_size=1
         channels = model.model.diffusion_model.out_channels
         frames = model.temporal_length
@@ -59,8 +62,10 @@ class Image2Video():
             text_emb = model.get_learned_conditioning([prompt])
 
             # img cond
-            img_tensor = torch.from_numpy(image).permute(2, 0, 1).float().to(model.device)
-            img_tensor = (img_tensor / 255. - 0.5) * 2
+            if model_precision == "fp16":
+                img_tensor = torch.from_numpy(image).permute(2, 0, 1).float().to(model.device)
+            else:
+                img_tensor = torch.from_numpy(image).permute(2, 0, 1).float().to(model.device).half
 
             image_tensor_resized = transform(img_tensor) #3,h,w
             videos = image_tensor_resized.unsqueeze(0) # bchw
